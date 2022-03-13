@@ -11,30 +11,19 @@ import io.github.golden.event.PlayerAddedToQueueEvent;
 
 public class NormalQueue extends BaseQueue implements Listener {
 
-    private QueueConfig queueConfig = QueueConfig.getConfig();
     private Sulfur sulfur = Sulfur.getSulfur();
-
-    private int maxPlayers;
 
     public NormalQueue(String queueName, String lobbyName, String destinationName, int maxPlayers) {
         // set super class variables
         this.queueName          = queueName;
+        this.maxPlayers         = maxPlayers;
         this.lobbyWorld         = sulfur.getServer().getWorld(lobbyName);
         this.destinationWorld   = sulfur.getServer().getWorld(destinationName);
-
-        // set the allowed number of players in the destination world
-        this.maxPlayers = maxPlayers;
 
         // todo: the world was not found
         if(lobbyWorld == null || destinationWorld == null) { 
             return;
         }
-
-        // write the queue to config
-        queueConfig.addQueue(queueName);
-        queueConfig.addProperty(queueName, "lobby", lobbyName);
-        queueConfig.addProperty(queueName, "destination", destinationName);
-        queueConfig.addProperty(queueName, "max_players", maxPlayers);
 
         // register this queue's events
         sulfur.getServer().getPluginManager().registerEvents(this, sulfur);

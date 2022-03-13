@@ -22,6 +22,8 @@ public class CommandListener implements CommandExecutor{
         if(!(sender instanceof Player)) { return false;}
         if(args.length < 1) { return false; }
 
+        Player player = (Player) sender;
+
         switch(args[0]) {
             // example: /sulfur createqueue normal testname hub factions 32
             case "createqueue":
@@ -30,6 +32,7 @@ public class CommandListener implements CommandExecutor{
                     return false; 
                 }
                 queueFactory.createQueue(QueueType.NORMAL, args[2], args[3], args[4], args[5]);
+                ChatUtils.sendMessage(player, new TextComponent("You've created a new queue between %s and %s.", args[3], args[4]));
             break;
 
             // example: /sulfur removequeue name
@@ -39,6 +42,7 @@ public class CommandListener implements CommandExecutor{
                     return false;
                 }
                 queueConfig.removeQueue(args[1]);
+                ChatUtils.sendMessage(player, new TextComponent("You've deleted the queue: \'%s\'", args[1]));
             break;
             
             // example: /sulfur joinqueue testname
@@ -49,6 +53,7 @@ public class CommandListener implements CommandExecutor{
                 }
 
                 queueFactory.getDeposit().addPlayerToQueue(args[1], sender.getName());
+                ChatUtils.sendMessage(player, new TextComponent("You've joined the queue: \'%s\'", args[1]));
             break;
             
             // example: /sulfur leavequeue testname
@@ -59,6 +64,7 @@ public class CommandListener implements CommandExecutor{
                 }
 
                 queueFactory.getDeposit().removePlayerFromQueue(args[1], sender.getName());
+                ChatUtils.sendMessage(player, new TextComponent("You've left the queue: \'%s\'", args[1]));
             break;
 
             // unknown command

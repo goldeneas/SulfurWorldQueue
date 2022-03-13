@@ -40,12 +40,22 @@ public class QueueConfig {
         }
     }
 
-    public void addQueue(String queueName) {
+    public void save(BaseQueue baseQueue) {
+        // write the queue to config
+        String queueName = baseQueue.getQueueName();
+
+        addQueueName(queueName);
+        addQueueProperty(queueName, "lobby", baseQueue.getLobbyName());
+        addQueueProperty(queueName, "destination", baseQueue.getDestinationName());
+        addQueueProperty(queueName, "max_players", baseQueue.getMaxPlayers());
+    }
+
+    public void addQueueName(String queueName) {
         queueFile.set(QUEUES_PATH + "." + queueName, "");
         saveFile();
     }
 
-    public void addProperty(String queueName, String propertyName, Object value) {
+    public void addQueueProperty(String queueName, String propertyName, Object value) {
         queueFile.set(QUEUES_PATH + "." + queueName + "." + propertyName, value);
         saveFile();
     }

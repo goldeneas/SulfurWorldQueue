@@ -2,6 +2,7 @@ package io.github.golden.queue;
 
 public class QueueFactory {
 
+    private QueueConfig queueConfig = QueueConfig.getConfig();
     private QueueDeposit queueDeposit;
 
     public QueueFactory() {
@@ -11,9 +12,12 @@ public class QueueFactory {
     // crate a new queue; returning it doesn't have a real function right now
     public BaseQueue createQueue(QueueType type, String queueName, String lobbyName, String destinationName, int maxPlayers) {
         if(type == QueueType.NORMAL) {
-            // create, store and return the new normal queue
+            // create, store, save to config and return the new normal queue
             NormalQueue tmpQueue = new NormalQueue(queueName, lobbyName, destinationName, maxPlayers);
-            return queueDeposit.store(tmpQueue);
+            queueDeposit.store(tmpQueue);
+            queueConfig.save(tmpQueue);
+            
+            return tmpQueue;
         } else {
             throw new UnsupportedOperationException("Not supported yet");
         }
