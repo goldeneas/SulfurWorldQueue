@@ -3,9 +3,6 @@ package io.github.golden.component;
 import org.bukkit.ChatColor;
 
 public class TextComponent {
-
-    private static final String PREFIX = "§6[SULFUR] > §7";
-
     private StringBuilder sb;
 
     private String string;
@@ -18,10 +15,10 @@ public class TextComponent {
         this.sb = new StringBuilder();
     }
 
-    public String build() {
+    public String build(String prefix) {
         String translatedString = ChatColor.translateAlternateColorCodes('&', string);
 
-        sb.append(PREFIX)
+        sb.append(prefix)
           .append(String.format(translatedString, args));
 
         return sb.toString();

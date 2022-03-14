@@ -5,7 +5,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class Sulfur extends JavaPlugin {
 
     // important
-    // todo: add on event queue loading
+    // todo: correct command listener class
     // todo: add permissions
     // todo: add sidebar/lowbar info
     // todo: add config messages

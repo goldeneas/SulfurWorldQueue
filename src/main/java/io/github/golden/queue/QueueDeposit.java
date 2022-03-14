@@ -33,26 +33,31 @@ public class QueueDeposit {
         return baseQueue;
     }
 
-    public void addPlayerToQueue(String queueName, String playerName) {
+    public boolean addPlayerToQueue(String queueName, String playerName) {
         Player tmpPlayer = Bukkit.getPlayer(playerName);
         Queue<Player> tmpQueue = queues.get(queueName);
 
-        // todo: add feedback
-        if(tmpPlayer == null || tmpQueue == null) { return; }
+        if(tmpPlayer == null || tmpQueue == null) { return false; }
         tmpQueue.add(tmpPlayer);
 
         // post event to all classes
         PlayerAddedToQueueEvent e = new PlayerAddedToQueueEvent(queueName, playerName);
         Bukkit.getPluginManager().callEvent(e);
+
+        // don't return tmpQueue.add(player); otherwise we're gonna fire the event before we add the player
+        /*
+            Bukkit.callEvent(...)                   - event fired
+            return tmpQueue.add(player)             - called afterwards
+        */
+        return true;
     }
 
-    public void removePlayerFromQueue(String queueName, String playerName) {
+    public boolean removePlayerFromQueue(String queueName, String playerName) {
         Player tmpPlayer = Bukkit.getPlayer(playerName);
         Queue<Player> tmpQueue = queues.get(queueName);
         
-        // todo: add feedback
-        if(tmpPlayer == null || tmpQueue == null) { return; }
-        tmpQueue.remove(tmpPlayer);
+        if(tmpPlayer == null || tmpQueue == null) { return false; }
+        return tmpQueue.remove(tmpPlayer);
 
         // todo: might need to implement a player removed from queue event
         // but it's currently not needed
