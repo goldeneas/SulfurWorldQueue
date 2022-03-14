@@ -9,11 +9,22 @@ import org.bukkit.entity.Player;
 import io.github.golden.event.PlayerAddedToQueueEvent;
 
 public class QueueDeposit {
+
+    private QueueConfig queueConfig = QueueConfig.getConfig();
+
     // queueName - playerQueue
     private HashMap<String, Queue<Player>> queues;
 
     public QueueDeposit() {
         queues = new HashMap<>();
+
+        loadQueuesFromConfig();
+    }
+
+    public void loadQueuesFromConfig() {
+        for(BaseQueue queue : queueConfig.getQueues()) {
+            store(queue);
+        }
     }
 
     public BaseQueue store(BaseQueue baseQueue) {

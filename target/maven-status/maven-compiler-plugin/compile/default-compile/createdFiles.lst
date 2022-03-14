@@ -3,9 +3,9 @@ io\github\golden\queue\NormalQueue.class
 io\github\golden\queue\QueueConfig.class
 io\github\golden\queue\QueueType.class
 io\github\golden\Sulfur.class
-io\github\golden\TextComponent.class
 io\github\golden\ChatUtils.class
 io\github\golden\queue\QueueFactory.class
+io\github\golden\component\TextComponent.class
 io\github\golden\queue\QueueDeposit.class
 io\github\golden\CommandListener.class
 io\github\golden\queue\BaseQueue.class

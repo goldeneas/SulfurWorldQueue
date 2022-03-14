@@ -2,6 +2,8 @@ package io.github.golden.queue;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 
 import dev.dejvokep.boostedyaml.YamlDocument;
 import io.github.golden.Sulfur;
@@ -65,6 +67,33 @@ public class QueueConfig {
         saveFile();
 
         return result;
+    }
+
+    public Set<BaseQueue> getQueues() {
+        Set<BaseQueue> resultQueues = new HashSet<>();
+        Set<String> tmpQueues = queueFile.getSection(QUEUES_PATH).getRoutesAsStrings(false);
+
+        for(String queueName : tmpQueues) {
+            int tmpMaxPlayers       = getMaxPlayers(queueName);
+            String tmpLobby         = getLobbyName(queueName);
+            String tmpDestination   = getDestinationName(queueName);
+
+            resultQueues.add(new NormalQueue(queueName, tmpLobby, tmpDestination, tmpMaxPlayers));
+        }
+
+        return resultQueues;
+    }
+
+    public String getLobbyName(String queueName) {
+        return queueFile.getString(QUEUES_PATH + "." + queueName + "." + "lobby");
+    }
+
+    public String getDestinationName(String queueName) {
+        return queueFile.getString(QUEUES_PATH + "." + queueName + "." + "destination");
+    }
+
+    public int getMaxPlayers(String queueName) {
+        return queueFile.getInt(QUEUES_PATH + "." + queueName + "." + "max_players");
     }
     
 }

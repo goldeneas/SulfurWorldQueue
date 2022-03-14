@@ -5,6 +5,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import io.github.golden.component.TextComponent;
 import io.github.golden.queue.QueueConfig;
 import io.github.golden.queue.QueueFactory;
 import io.github.golden.queue.QueueType;
@@ -51,6 +52,9 @@ public class CommandListener implements CommandExecutor{
                     // todo: add real feedback messages
                     return false;
                 }
+
+                // todo: add queue checking
+                // (if it exists)
 
                 queueFactory.getDeposit().addPlayerToQueue(args[1], sender.getName());
                 ChatUtils.sendMessage(player, new TextComponent("You've joined the queue: \'%s\'", args[1]));

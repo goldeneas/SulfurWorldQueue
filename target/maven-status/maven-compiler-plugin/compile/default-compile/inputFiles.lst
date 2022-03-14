@@ -1,11 +1,11 @@
 d:\Workspace\Java\Minecraft Plugins\queue\src\main\java\io\github\golden\CommandListener.java
 d:\Workspace\Java\Minecraft Plugins\queue\src\main\java\io\github\golden\queue\NormalQueue.java
-d:\Workspace\Java\Minecraft Plugins\queue\src\main\java\io\github\golden\TextComponent.java
 d:\Workspace\Java\Minecraft Plugins\queue\src\main\java\io\github\golden\queue\BaseQueue.java
 d:\Workspace\Java\Minecraft Plugins\queue\src\main\java\io\github\golden\queue\QueueConfig.java
 d:\Workspace\Java\Minecraft Plugins\queue\src\main\java\io\github\golden\Sulfur.java
 d:\Workspace\Java\Minecraft Plugins\queue\src\main\java\io\github\golden\queue\QueueDeposit.java
 d:\Workspace\Java\Minecraft Plugins\queue\src\main\java\io\github\golden\ChatUtils.java
+d:\Workspace\Java\Minecraft Plugins\queue\src\main\java\io\github\golden\component\TextComponent.java
 d:\Workspace\Java\Minecraft Plugins\queue\src\main\java\io\github\golden\queue\QueueType.java
 d:\Workspace\Java\Minecraft Plugins\queue\src\main\java\io\github\golden\queue\QueueFactory.java
 d:\Workspace\Java\Minecraft Plugins\queue\src\main\java\io\github\golden\event\PlayerAddedToQueueEvent.java
