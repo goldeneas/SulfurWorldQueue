@@ -19,6 +19,7 @@ permissions:
       sulfur.admin: true
       sulfur.user: true
   sulfur.user:
+    default: true
     description: Allows user commands for Sulfur
   sulfur.admin:
     description: Allows administration commands for Sulfur

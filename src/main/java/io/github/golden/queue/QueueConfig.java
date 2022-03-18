@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import dev.dejvokep.boostedyaml.YamlDocument;
+import dev.dejvokep.boostedyaml.block.implementation.Section;
 import io.github.golden.Sulfur;
 
 public class QueueConfig {
@@ -71,7 +72,15 @@ public class QueueConfig {
 
     public Set<BaseQueue> getQueues() {
         Set<BaseQueue> resultQueues = new HashSet<>();
-        Set<String> tmpQueues = queueFile.getSection(QUEUES_PATH).getRoutesAsStrings(false);
+        // the section is a subsection of a part of the config (not a list of objects)
+        Section queueSection = queueFile.getSection(QUEUES_PATH);
+        
+        // if the config is empty (because it has just been created/no queues have been created yet)
+        // if that's the case, then we don't want to load anything
+        if(queueSection == null) { return new HashSet<>();}
+
+        // otherwise, get the queues' names
+        Set<String> tmpQueues = queueSection.getRoutesAsStrings(false);
 
         for(String queueName : tmpQueues) {
             int tmpMaxPlayers       = getMaxPlayers(queueName);

@@ -28,6 +28,11 @@ public class CommandListener implements CommandExecutor{
         switch(args[0]) {
             // example: /sulfur createqueue normal testname hub factions 32
             case "createqueue":
+                if(!player.hasPermission("sulfur.admin")) {
+                    ChatUtils.sendMessage(player, 
+                        new TextComponent("Not enough permissions."));
+                }
+
                 if(args.length < 6) {
                     ChatUtils.sendMessage(player,
                         new TextComponent("Correct usage: /sulfur createqueue <normal/...> <name> <lobby> <destination> <maxplayers>"));
@@ -39,6 +44,11 @@ public class CommandListener implements CommandExecutor{
 
             // example: /sulfur removequeue name
             case "removequeue":
+                if(!player.hasPermission("sulfur.admin")) {
+                    ChatUtils.sendMessage(player, 
+                        new TextComponent("Not enough permissions."));
+                }
+
                 if(args.length < 2) {
                     ChatUtils.sendMessage(player,
                         new TextComponent("Correct usage: /sulfur removequeue <name>"));
@@ -50,6 +60,12 @@ public class CommandListener implements CommandExecutor{
             
             // example: /sulfur joinqueue testname
             case "joinqueue":
+
+                if(!player.hasPermission("sulfur.user")) {
+                    ChatUtils.sendMessage(player, 
+                        new TextComponent("Not enough permissions."));
+                }
+
                 if(args.length < 2) {
                     ChatUtils.sendMessage(player,
                         new TextComponent("Correct usage: /sulfur joinqueue <name>"));
@@ -67,6 +83,12 @@ public class CommandListener implements CommandExecutor{
             
             // example: /sulfur leavequeue testname
             case "leavequeue":
+
+                if(!player.hasPermission("sulfur.user")) {
+                    ChatUtils.sendMessage(player, 
+                        new TextComponent("Not enough permissions."));
+                }
+
                 if(args.length < 2) {
                     ChatUtils.sendMessage(player,
                         new TextComponent("Correct usage: /sulfur leavequeue <name>"));
