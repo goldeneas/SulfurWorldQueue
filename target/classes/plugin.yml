@@ -1,0 +1,26 @@
+main: io.github.golden.Sulfur
+name: Sulfur
+version: '1.0'
+api-version: 1.18
+description: Simple cross-world queue plugin
+author: Golden
+commands:
+  sulfur:
+    description:
+    aliases:
+    - sul
+    - sfur
+    usage: "§6[SULFUR] > §7Incorrect usage! Please try again."
+permissions:
+  sulfur.*:
+    description: Wildcard permission
+    default: op
+    children:
+      sulfur.admin: true
+      sulfur.user: true
+  sulfur.user:
+    default: true
+    description: Allows user commands for Sulfur
+  sulfur.admin:
+    description: Allows administration commands for Sulfur
+    default: op
