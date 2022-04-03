@@ -1,8 +1,6 @@
-package io.github.golden;
+package io.github.golden.chat;
 
 import org.bukkit.entity.Player;
-
-import io.github.golden.component.TextComponent;
 
 public class ChatUtils {
 

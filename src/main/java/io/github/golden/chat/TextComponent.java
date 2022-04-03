@@ -1,4 +1,4 @@
-package io.github.golden.component;
+package io.github.golden.chat;
 
 import org.bukkit.ChatColor;
 

@@ -5,7 +5,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class Sulfur extends JavaPlugin {
 
     // important
-    // todo: add permissions
+    // todo: add autocompletion commands
     // todo: add config messages
 
     // less important
@@ -21,10 +21,11 @@ public class Sulfur extends JavaPlugin {
         sulfur = this;
 
         this.getCommand("sulfur").setExecutor(new CommandListener());
+        this.getCommand("sulfur").setTabCompleter(new CommandCompleter());
     }
 
     public static Sulfur getSulfur() {
-        return sulfur;   
+        return sulfur;
     }
 
 }

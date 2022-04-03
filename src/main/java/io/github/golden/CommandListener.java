@@ -5,7 +5,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import io.github.golden.component.TextComponent;
+import io.github.golden.chat.ChatUtils;
+import io.github.golden.chat.TextComponent;
 import io.github.golden.queue.QueueConfig;
 import io.github.golden.queue.QueueFactory;
 import io.github.golden.queue.QueueType;
@@ -31,11 +32,12 @@ public class CommandListener implements CommandExecutor{
                 if(!player.hasPermission("sulfur.admin")) {
                     ChatUtils.sendMessage(player, 
                         new TextComponent("Not enough permissions."));
+                    return true; 
                 }
 
                 if(args.length < 6) {
                     ChatUtils.sendMessage(player,
-                        new TextComponent("Correct usage: /sulfur createqueue <normal/...> <name> <lobby> <destination> <maxplayers>"));
+                        new TextComponent("Correct usage: %s", "/sulfur createqueue <normal/...> <name> <lobby> <destination> <maxplayers>"));
                     return true; 
                 }
                 queueFactory.createQueue(QueueType.NORMAL, args[2], args[3], args[4], args[5]);
@@ -47,11 +49,12 @@ public class CommandListener implements CommandExecutor{
                 if(!player.hasPermission("sulfur.admin")) {
                     ChatUtils.sendMessage(player, 
                         new TextComponent("Not enough permissions."));
+                    return true; 
                 }
 
                 if(args.length < 2) {
                     ChatUtils.sendMessage(player,
-                        new TextComponent("Correct usage: /sulfur removequeue <name>"));
+                        new TextComponent("Correct usage: %s", "/sulfur removequeue <name>"));
                     return true;
                 }
                 queueConfig.removeQueue(args[1]);
@@ -64,11 +67,12 @@ public class CommandListener implements CommandExecutor{
                 if(!player.hasPermission("sulfur.user")) {
                     ChatUtils.sendMessage(player, 
                         new TextComponent("Not enough permissions."));
+                    return true; 
                 }
 
                 if(args.length < 2) {
                     ChatUtils.sendMessage(player,
-                        new TextComponent("Correct usage: /sulfur joinqueue <name>"));
+                        new TextComponent("Correct usage: %s", "/sulfur joinqueue <name>"));
                     return true;
                 }
                 
@@ -87,11 +91,12 @@ public class CommandListener implements CommandExecutor{
                 if(!player.hasPermission("sulfur.user")) {
                     ChatUtils.sendMessage(player, 
                         new TextComponent("Not enough permissions."));
+                    return true; 
                 }
 
                 if(args.length < 2) {
                     ChatUtils.sendMessage(player,
-                        new TextComponent("Correct usage: /sulfur leavequeue <name>"));
+                        new TextComponent("Correct usage: %s", "/sulfur leavequeue <name>"));
                     return true;
                 }
 

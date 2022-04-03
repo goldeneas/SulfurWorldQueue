@@ -10,7 +10,7 @@ commands:
     aliases:
     - sul
     - sfur
-    usage: "§6[SULFUR] > §7Incorrect usage! Please try again."
+    usage: "§6Sulfur » §7Incorrect usage! Please try again."
 permissions:
   sulfur.*:
     description: Wildcard permission
