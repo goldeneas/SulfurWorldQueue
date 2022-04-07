@@ -1,0 +1,14 @@
+io\github\golden\event\PlayerAddedToQueueEvent.class
+io\github\golden\queue\NormalQueue.class
+io\github\golden\queue\QueueType.class
+io\github\golden\Sulfur.class
+io\github\golden\CommandCompleter.class
+io\github\golden\queue\QueueFactory.class
+io\github\golden\chat\ChatUtils.class
+io\github\golden\completition\CompletionFactory.class
+io\github\golden\CommandListener.class
+io\github\golden\queue\BaseQueue.class
+io\github\golden\chat\TextComponent.class
+io\github\golden\queue\QueueConfig.class
+io\github\golden\completition\CompletionComponent.class
+io\github\golden\queue\QueueDeposit.class
