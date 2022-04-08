@@ -16,16 +16,14 @@ public class CompletionFactory {
         for(int i = 0; i < args.length; i++) {
             String s = args[i];
 
-            if(!s.contains("/")) { c.addOption(s); }
-
-            // the string contains a /, which means there are multiple options
-            // for the same index
-            // we use i + 1 becose the 0th arg is the subcommand
-            /*
-                        0           1      2    3     4        5
-                /sulfur createqueue normal test lobby factions 32
-            */
-            c.addMultipleOptions(i + 1, s.split("/"));
+            if(!s.contains("/")) {
+                // add a single option to that index
+                c.addOption(i, s);
+            } else {
+                // the string contains a /, which means there are multiple options
+                // for the same index
+                c.addMultipleOptions(i, s.split("/"));
+            }
         }
 
         components.add(c);

@@ -17,6 +17,9 @@ public class CommandCompleter implements TabCompleter {
 
     public CommandCompleter() {
         // create auto completion components
+        completionFactory.createComponent("", 
+            "createqueue/removequeue/joinqueue/leavequeue");
+
         completionFactory.createComponent("createqueue",
             "normal/priority", "<queue_name>", "<lobby>", "<destination>", "<max_players>");
         
@@ -42,7 +45,16 @@ public class CommandCompleter implements TabCompleter {
                 /sulfur createqueue normal test lobby factions 32
             */
             if(c.getCommandName().equalsIgnoreCase(args[0].trim())) {
-                return c.getOptions(args.length);
+                // the lenght of the args starts from 1 (we always have an argument, starting from the subcommand)
+                // we remove one because as we type the subcommand, the lenght of args is already one
+                // but we want to store it as the 0th arg
+                // ex.
+                /*
+                    ARGS:                   0           1    ...
+                    LENGHT:                 1           2
+                                    /sulfur createqueue test ...
+                */
+                return c.getOptions(args.length - 1);
             }
         }
 
