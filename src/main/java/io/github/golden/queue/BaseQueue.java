@@ -1,6 +1,6 @@
 package io.github.golden.queue;
 
-import java.util.LinkedList;
+import java.util.ArrayDeque;
 import java.util.Queue;
 
 import org.bukkit.World;
@@ -11,11 +11,11 @@ public class BaseQueue {
     protected String queueName;
     protected World lobbyWorld;
     protected World destinationWorld;
-    protected Queue<Player> playerQueue;
+    protected ArrayDeque<Player> playerQueue;
     protected int maxPlayers;
 
     protected BaseQueue() {
-        playerQueue = new LinkedList<>();
+        playerQueue = new ArrayDeque<>();
     }
 
     public String getLobbyName() {
@@ -36,5 +36,24 @@ public class BaseQueue {
 
     public int getMaxPlayers() {
         return maxPlayers;
+    }
+
+    public int getPlayerPosition(Player player) {
+        // will return -1 if the player is not in the queue
+        if(!playerQueue.contains(player)) { return -1; }
+
+        // start the index at 1
+        // the first player has to be in position 1, not 0
+        int index = 1;
+        String playerName = player.getName();
+
+        // todo: check order of iterator
+        // if it's FIFO (most likely) or LIFO
+        for(Player p : playerQueue) {
+            if(playerName.equalsIgnoreCase(p.getName())) { break; }
+            index++;
+        }
+
+        return index;
     }
 }

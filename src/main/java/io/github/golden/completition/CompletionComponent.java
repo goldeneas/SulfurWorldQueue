@@ -29,7 +29,7 @@ public class CompletionComponent {
         // get the old values
         List<String> old = optionsMap.get(index);
         if(old != null) { Collections.copy(list, old); }
-        
+
         // add the new values
         Collections.addAll(list, options);
         

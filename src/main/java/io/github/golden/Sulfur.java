@@ -5,6 +5,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class Sulfur extends JavaPlugin {
 
     // important
+    // todo: better completion, currently commands disappear if they're partly written
+    // todo: add information about current player position in queue
     // todo: fix autocomplete workaround
     // todo: add config messages
 

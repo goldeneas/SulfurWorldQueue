@@ -1,5 +1,6 @@
 package io.github.golden;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -20,6 +21,8 @@ public class CommandCompleter implements TabCompleter {
         // todo: make this more modular
         // for example:
         // factory.createComponent("command").build(options);
+
+        // todo: make this first list different from the rest
         completionFactory.createComponent("", 
             "createqueue/removequeue/joinqueue/leavequeue");
 
@@ -51,6 +54,8 @@ public class CommandCompleter implements TabCompleter {
             String commandName = c.getCommandName();
             String inputName = args[0].trim();
 
+            // if the input command has been completely typed, then
+            // send the player the options for that command
             if(commandName.equalsIgnoreCase(inputName)) {
                 // the lenght of the args starts from 1 (we always have an argument, starting from the subcommand)
                 // we remove one because as we type the subcommand, the lenght of args is already one
@@ -62,6 +67,11 @@ public class CommandCompleter implements TabCompleter {
                                     /sulfur createqueue test ...
                 */
                 return c.getOptions(args.length - 1);
+            
+            // otherwise, if the command has been partially written,
+            // then send the player the rest of the command as completion
+            } else if(commandName.startsWith(inputName)) {
+                return Arrays.asList(commandName);
             }
         }
 
