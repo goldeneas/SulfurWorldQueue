@@ -17,20 +17,23 @@ public class CommandCompleter implements TabCompleter {
 
     public CommandCompleter() {
         // create auto completion components
+        // todo: make this more modular
+        // for example:
+        // factory.createComponent("command").build(options);
         completionFactory.createComponent("", 
             "createqueue/removequeue/joinqueue/leavequeue");
 
         completionFactory.createComponent("createqueue",
-            "normal/priority", "<queue_name>", "<lobby>", "<destination>", "<max_players>");
+            "", "normal", "<queue_name>", "<lobby>", "<destination>", "<max_players>");
         
         completionFactory.createComponent("removequeue",
-            "<queue_name>");
+            "", "<queue_name>");
 
         completionFactory.createComponent("joinqueue",
-            "<queue_name>");
+            "", "<queue_name>");
 
         completionFactory.createComponent("leavequeue",
-            "<queue_name>");
+            "", "<queue_name>");
     }
 
     @Override
@@ -44,7 +47,11 @@ public class CommandCompleter implements TabCompleter {
                         0           1      2    3     4        5
                 /sulfur createqueue normal test lobby factions 32
             */
-            if(c.getCommandName().equalsIgnoreCase(args[0].trim())) {
+            
+            String commandName = c.getCommandName();
+            String inputName = args[0].trim();
+
+            if(commandName.equalsIgnoreCase(inputName)) {
                 // the lenght of the args starts from 1 (we always have an argument, starting from the subcommand)
                 // we remove one because as we type the subcommand, the lenght of args is already one
                 // but we want to store it as the 0th arg

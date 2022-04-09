@@ -22,7 +22,7 @@ public class CompletionFactory {
             } else {
                 // the string contains a /, which means there are multiple options
                 // for the same index
-                c.addMultipleOptions(i, s.split("/"));
+                c.addOptions(i, s.split("/"));
             }
         }
 
