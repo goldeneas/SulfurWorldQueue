@@ -1,5 +1,6 @@
-package io.github.golden;
+package io.github.golden.command.completion;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -8,41 +9,37 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 
-import io.github.golden.completition.CompletionComponent;
-import io.github.golden.completition.CompletionFactory;
-
 // todo: probably refactor this even more
 public class CommandCompleter implements TabCompleter {
 
-    private CompletionFactory completionFactory = new CompletionFactory();
+    private ArrayList<CompletionComponent> completionComponents = new ArrayList<>();
 
     public CommandCompleter() {
-        // create auto completion components
-        // todo: make this more modular
-        // for example:
-        // factory.createComponent("command").build(options);
+        completionComponents.add(new CompletionComponent("",
+            "createqueue/removequeue/joinqueue/leavequeue"
+        ));
 
-        // todo: make this first list different from the rest
-        completionFactory.createComponent("", 
-            "createqueue/removequeue/joinqueue/leavequeue");
+        completionComponents.add(new CompletionComponent("createqueue",
+            "", "normal", "<queue_name>", "<lobby>", "<destination>", "<max_players>"
+        ));
 
-        completionFactory.createComponent("createqueue",
-            "", "normal", "<queue_name>", "<lobby>", "<destination>", "<max_players>");
-        
-        completionFactory.createComponent("removequeue",
-            "", "<queue_name>");
+        completionComponents.add(new CompletionComponent("removequeue",
+            "", "<queue_name>"
+        ));
 
-        completionFactory.createComponent("joinqueue",
-            "", "<queue_name>");
+        completionComponents.add(new CompletionComponent("join",
+            "", "<queue_name>"
+        ));
 
-        completionFactory.createComponent("leavequeue",
-            "", "<queue_name>");
+        completionComponents.add(new CompletionComponent("leavequeue",
+            "", "<queue_name>"
+        ));
     }
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         // get the components
-        for(CompletionComponent c : completionFactory.getComponents()) {
+        for(CompletionComponent c : completionComponents) {
             // check if the current component's command name is the same as sulfur's first subcommand
             // we have to trim it in order to remove trailing and starting spaces
             // for example:

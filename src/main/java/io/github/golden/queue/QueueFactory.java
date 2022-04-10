@@ -10,21 +10,26 @@ public class QueueFactory {
     }
     
     // crate a new queue; returning it doesn't have a real function right now
-    public BaseQueue createQueue(QueueType type, String queueName, String lobbyName, String destinationName, int maxPlayers) {
+    public QueueResult createQueue(QueueType type, String queueName, String lobbyName, String destinationName, int maxPlayers) {
         if(type == QueueType.NORMAL) {
             // create, store, save to config and return the new normal queue
             NormalQueue tmpQueue = new NormalQueue(queueName, lobbyName, destinationName, maxPlayers);
-            queueDeposit.store(tmpQueue);
-            queueConfig.save(tmpQueue);
-            
-            return tmpQueue;
+
+            // if the queue is ok, then save it and load it in the deposit
+            QueueResult status = tmpQueue.getStatus();
+            if(status == QueueResult.OK) {
+                queueDeposit.store(tmpQueue);
+                queueConfig.save(tmpQueue);
+            }
+
+            return status;
         } else {
-            throw new UnsupportedOperationException("Not supported yet");
+            return QueueResult.NOT_IMPLEMENTED;
         }
     }
 
     // overload: lets us use strings insted of ints as argument for max players
-    public BaseQueue createQueue(QueueType type, String queueName, String lobbyName, String destinationName, String maxPlayers) {
+    public QueueResult createQueue(QueueType type, String queueName, String lobbyName, String destinationName, String maxPlayers) {
         int parsedMaxPlayers = Integer.parseInt(maxPlayers);
         return createQueue(type, queueName, lobbyName, destinationName, parsedMaxPlayers);
     }

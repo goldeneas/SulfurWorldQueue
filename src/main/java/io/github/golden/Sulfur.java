@@ -2,12 +2,17 @@ package io.github.golden;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
+import io.github.golden.command.CommandListener;
+import io.github.golden.command.completion.CommandCompleter;
+
 public class Sulfur extends JavaPlugin {
 
     // important
-    // todo: better completion, currently commands disappear if they're partly written
+    // todo: for the love of god fix the completion
+    //  we might have to separate subcommand and options components
+    //  we are still using the workaround, which is good for now
+    //  because it's taking me way too much time for a stupid feature
     // todo: add information about current player position in queue
-    // todo: fix autocomplete workaround
     // todo: add config messages
 
     // less important

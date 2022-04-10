@@ -11,7 +11,7 @@ import io.github.golden.event.PlayerAddedToQueueEvent;
 
 public class NormalQueue extends BaseQueue implements Listener {
 
-    private Sulfur sulfur = Sulfur.getSulfur();
+    private static Sulfur sulfur = Sulfur.getSulfur();
 
     public NormalQueue(String queueName, String lobbyName, String destinationName, int maxPlayers) {
         // set super class variables
@@ -19,14 +19,10 @@ public class NormalQueue extends BaseQueue implements Listener {
         this.maxPlayers         = maxPlayers;
         this.lobbyWorld         = sulfur.getServer().getWorld(lobbyName);
         this.destinationWorld   = sulfur.getServer().getWorld(destinationName);
+        this.status             = checkStatus();
 
-        // todo: the world was not found
-        if(lobbyWorld == null || destinationWorld == null) { 
-            return;
-        }
-
-        // register this queue's events
-        sulfur.getServer().getPluginManager().registerEvents(this, sulfur);
+        // if the queue is ok, then we can register the events
+        if(this.status == QueueResult.OK) { sulfur.getServer().getPluginManager().registerEvents(this, sulfur); }
     }
 
     // todo: commented out because we don't want anyone to automatically join the queue

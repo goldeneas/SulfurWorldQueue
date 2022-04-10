@@ -1,4 +1,4 @@
-package io.github.golden;
+package io.github.golden.command;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -6,9 +6,10 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import io.github.golden.chat.ChatUtils;
-import io.github.golden.chat.TextComponent;
+import io.github.golden.chat.ChatComponent;
 import io.github.golden.queue.QueueConfig;
 import io.github.golden.queue.QueueFactory;
+import io.github.golden.queue.QueueResult;
 import io.github.golden.queue.QueueType;
 
 public class CommandListener implements CommandExecutor{
@@ -19,10 +20,10 @@ public class CommandListener implements CommandExecutor{
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        // todo: check for permissions
+        // todo: check if console is trying to join or leave queue
         
-        if(!(sender instanceof Player)) { return false;}
-        if(args.length < 1) { return false; }
+        if(!(sender instanceof Player)) { return false; }
+        if(args.length < 1)             { return false; }
 
         Player player = (Player) sender;
 
@@ -31,34 +32,38 @@ public class CommandListener implements CommandExecutor{
             case "createqueue":
                 if(!player.hasPermission("sulfur.admin")) {
                     ChatUtils.sendMessage(player, 
-                        new TextComponent("Not enough permissions."));
+                        new ChatComponent("Not enough permissions."));
                     return true; 
                 }
 
                 if(args.length < 6) {
                     ChatUtils.sendMessage(player,
-                        new TextComponent("Correct usage: %s", "/sulfur createqueue <normal/...> <name> <lobby> <destination> <maxplayers>"));
+                        new ChatComponent("Correct usage: %s", "/sulfur createqueue <normal/...> <name> <lobby> <destination> <maxplayers>"));
                     return true; 
                 }
-                queueFactory.createQueue(QueueType.NORMAL, args[2], args[3], args[4], args[5]);
-                ChatUtils.sendMessage(player, new TextComponent("You've created a new queue between %s and %s.", args[3], args[4]));
+
+                QueueResult status = queueFactory.createQueue(QueueType.NORMAL, args[2], args[3], args[4], args[5]);
+                if(status != QueueResult.OK) {
+                    ChatUtils.sendMessage(player, new ChatComponent(""));
+                }
+                ChatUtils.sendMessage(player, new ChatComponent("You've created a new queue between %s and %s.", args[3], args[4]));
             break;
 
             // example: /sulfur removequeue name
             case "removequeue":
                 if(!player.hasPermission("sulfur.admin")) {
                     ChatUtils.sendMessage(player, 
-                        new TextComponent("Not enough permissions."));
+                        new ChatComponent("Not enough permissions."));
                     return true; 
                 }
 
                 if(args.length < 2) {
                     ChatUtils.sendMessage(player,
-                        new TextComponent("Correct usage: %s", "/sulfur removequeue <name>"));
+                        new ChatComponent("Correct usage: %s", "/sulfur removequeue <name>"));
                     return true;
                 }
                 queueConfig.removeQueue(args[1]);
-                ChatUtils.sendMessage(player, new TextComponent("You've deleted the queue: \'%s\'", args[1]));
+                ChatUtils.sendMessage(player, new ChatComponent("You've deleted the queue: \'%s\'", args[1]));
             break;
             
             // example: /sulfur joinqueue testname
@@ -66,22 +71,22 @@ public class CommandListener implements CommandExecutor{
 
                 if(!player.hasPermission("sulfur.user")) {
                     ChatUtils.sendMessage(player, 
-                        new TextComponent("Not enough permissions."));
+                        new ChatComponent("Not enough permissions."));
                     return true; 
                 }
 
                 if(args.length < 2) {
                     ChatUtils.sendMessage(player,
-                        new TextComponent("Correct usage: %s", "/sulfur joinqueue <name>"));
+                        new ChatComponent("Correct usage: %s", "/sulfur joinqueue <name>"));
                     return true;
                 }
                 
                 // if the queue exists, add the player.
                 // otherwise, do feedback
                 if(queueFactory.getDeposit().addPlayerToQueue(args[1], sender.getName())) {
-                    ChatUtils.sendMessage(player, new TextComponent("You've joined the queue: \'%s\'", args[1]));
+                    ChatUtils.sendMessage(player, new ChatComponent("You've joined the queue: \'%s\'", args[1]));
                 } else {
-                    ChatUtils.sendMessage(player, new TextComponent("Could not find queue: \'%s\'", args[1]));
+                    ChatUtils.sendMessage(player, new ChatComponent("Could not find queue: \'%s\'", args[1]));
                 }
             break;
             
@@ -90,32 +95,56 @@ public class CommandListener implements CommandExecutor{
 
                 if(!player.hasPermission("sulfur.user")) {
                     ChatUtils.sendMessage(player, 
-                        new TextComponent("Not enough permissions."));
+                        new ChatComponent("Not enough permissions."));
                     return true; 
                 }
 
                 if(args.length < 2) {
                     ChatUtils.sendMessage(player,
-                        new TextComponent("Correct usage: %s", "/sulfur leavequeue <name>"));
+                        new ChatComponent("Correct usage: %s", "/sulfur leavequeue <name>"));
                     return true;
                 }
 
                 // if the queue exists, remove the player.
                 // otherwise, do feedback
                 if(queueFactory.getDeposit().removePlayerFromQueue(args[1], sender.getName())) {
-                    ChatUtils.sendMessage(player, new TextComponent("You've left the queue: \'%s\'", args[1]));
+                    ChatUtils.sendMessage(player, new ChatComponent("You've left the queue: \'%s\'", args[1]));
                 } else {
-                    ChatUtils.sendMessage(player, new TextComponent("Could not find queue: \'%s\'", args[1]));
+                    ChatUtils.sendMessage(player, new ChatComponent("Could not find queue: \'%s\'", args[1]));
                 }
             break;
 
             // unknown command
             default:
-                ChatUtils.sendMessage(player, new TextComponent("Could not find command: \'%s\'", args[0]));
+                ChatUtils.sendMessage(player, new ChatComponent("Could not find command: \'%s\'", args[0]));
             break;
         }
 
         return true;
+    }
+
+    private ChatComponent getSpecificErrorFromResult(QueueResult status) {
+        String error;
+
+        switch (status) {
+            case UNKNOWN_WORLD:
+                error = "Unknown world.";
+                break;
+
+            case NOT_INITIALIZED:
+                error = "The queue has not been initialized yet!";
+                break;
+
+            case NOT_IMPLEMENTED:
+                error = "This feature has not been implemented yet!";
+                break;
+
+            default:
+            case ERROR:
+                error = "Unknown error.";
+        }
+
+        return new ChatComponent(error);
     }
     
 }

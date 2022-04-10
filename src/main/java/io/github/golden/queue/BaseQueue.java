@@ -11,6 +11,7 @@ public class BaseQueue {
     protected String queueName;
     protected World lobbyWorld;
     protected World destinationWorld;
+    protected QueueResult status;
     protected ArrayDeque<Player> playerQueue;
     protected int maxPlayers;
 
@@ -24,6 +25,10 @@ public class BaseQueue {
 
     public String getDestinationName() {
         return destinationWorld.getName();
+    }
+
+    public QueueResult getStatus() {
+        return status;
     }
 
     public String getQueueName() {
@@ -47,13 +52,23 @@ public class BaseQueue {
         int index = 1;
         String playerName = player.getName();
 
-        // todo: check order of iterator
-        // if it's FIFO (most likely) or LIFO
+        // FIFO
         for(Player p : playerQueue) {
             if(playerName.equalsIgnoreCase(p.getName())) { break; }
             index++;
         }
 
         return index;
+    }
+
+    protected QueueResult checkStatus() {
+        QueueResult result = QueueResult.OK;
+
+        // a world was not found
+        if(lobbyWorld == null || destinationWorld == null) { 
+            result = QueueResult.UNKNOWN_WORLD;
+        }
+
+        return result;
     }
 }
