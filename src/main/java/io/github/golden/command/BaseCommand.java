@@ -24,7 +24,7 @@ public abstract class BaseCommand {
             return;
         }
 
-        if(!executor.hasPermission(requiredPermission) || (!requiredPermission.equals(""))) {
+        if(!executor.hasPermission(requiredPermission)) {
             ChatUtils.sendMessage(executor, 
                 new ChatComponent("Not enough permissions."));
             return;    
