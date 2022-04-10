@@ -1,4 +1,4 @@
-package io.github.golden.command;
+package io.github.golden.command.commands;
 
 import org.bukkit.entity.Player;
 
@@ -8,8 +8,8 @@ import io.github.golden.chat.ChatUtils;
 public abstract class BaseCommand {
     
     protected String commandName;
-    protected String requiredPermission;
     protected int requiredArgsLenght;
+    protected String requiredPermission = "sulfur.user";
 
     protected String usage;
 

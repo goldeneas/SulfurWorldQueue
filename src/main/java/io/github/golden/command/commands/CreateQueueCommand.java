@@ -4,7 +4,6 @@ import org.bukkit.entity.Player;
 
 import io.github.golden.chat.ChatComponent;
 import io.github.golden.chat.ChatUtils;
-import io.github.golden.command.BaseCommand;
 import io.github.golden.queue.QueueFactory;
 import io.github.golden.queue.QueueResult;
 import io.github.golden.queue.QueueType;
@@ -24,7 +23,22 @@ public class CreateQueueCommand extends BaseCommand {
 
     @Override
     protected void onCommand(Player executor, String... args) {
-        QueueResult status = queueFactory.createQueue(QueueType.NORMAL, args[2], args[3], args[4], args[5]);
+
+        // parse the 5th arg as int (maxplayers)
+        int maxPlayers = -1;
+        try {
+            maxPlayers = Integer.parseInt(args[5]);
+        } catch(NumberFormatException e) {
+            ChatUtils.sendMessage(executor,
+                new ChatComponent("The value you inserted as 'maxplayers' is not a valid number.", maxPlayers));
+            return;
+        }
+
+        // create the queue and save/load it
+        QueueResult status = queueFactory.createQueue(QueueType.NORMAL, args[2], args[3], args[4], maxPlayers);
+
+        // check the status of the queue
+        // if the status is not ok, the queue will not be saved or loaded
         if(status != QueueResult.OK) {
             ChatUtils.sendMessage(executor, getErrorFeedback(status));
             return;

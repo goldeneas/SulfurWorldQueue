@@ -25,18 +25,6 @@ public class NormalQueue extends BaseQueue implements Listener {
         if(this.status == QueueResult.OK) { sulfur.getServer().getPluginManager().registerEvents(this, sulfur); }
     }
 
-    // todo: commented out because we don't want anyone to automatically join the queue
-    // might be implemented as a feature though
-    // @EventHandler
-    // public void onPlayerJoin(PlayerJoinEvent event) {
-    //     if(event.getPlayer().getWorld() != lobbyWorld) { return; }
-
-    //     // the player has to enter the queue
-    //     if(destinationWorld.getPlayers().size() >= maxPlayers) {
-    //         queue.add(event.getPlayer());
-    //     }
-    // }
-
     @EventHandler
     public void onPlayerAddedToQueue(PlayerAddedToQueueEvent event) {
         // if the queue the player has been added to is not this class's, then don't do anything here
@@ -55,8 +43,6 @@ public class NormalQueue extends BaseQueue implements Listener {
 
         // if the player has changed world, remove him from the queue
         if(event.getFrom() == lobbyWorld && player.getWorld() != lobbyWorld) {
-            // todo: might cause a double removal of player
-            // if this doesn't throw an error, it's fine
             playerQueue.remove(player);
         }
 

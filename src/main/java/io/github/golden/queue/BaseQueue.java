@@ -1,6 +1,7 @@
 package io.github.golden.queue;
 
 import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.Queue;
 
 import org.bukkit.World;
@@ -41,6 +42,10 @@ public class BaseQueue {
 
     public int getMaxPlayers() {
         return maxPlayers;
+    }
+
+    public Deque<Player> getPlayers() {
+        return playerQueue;
     }
 
     public int getPlayerPosition(Player player) {

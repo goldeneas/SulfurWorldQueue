@@ -1,6 +1,7 @@
 package io.github.golden.queue;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Queue;
 
 import org.bukkit.Bukkit;
@@ -13,7 +14,7 @@ public class QueueDeposit {
     private QueueConfig queueConfig = QueueConfig.getConfig();
 
     // queueName - playerQueue
-    private HashMap<String, Queue<Player>> queues;
+    private HashMap<String, BaseQueue> queues;
 
     public QueueDeposit() {
         queues = new HashMap<>();
@@ -29,13 +30,13 @@ public class QueueDeposit {
 
     public BaseQueue store(BaseQueue baseQueue) {
         // load the queue in memory
-        queues.put(baseQueue.getQueueName(), baseQueue.getCollection());
+        queues.put(baseQueue.getQueueName(), baseQueue);
         return baseQueue;
     }
 
     public boolean addPlayerToQueue(String queueName, String playerName) {
         Player tmpPlayer = Bukkit.getPlayer(playerName);
-        Queue<Player> tmpQueue = queues.get(queueName);
+        Queue<Player> tmpQueue = queues.get(queueName).getCollection();
 
         if(tmpPlayer == null || tmpQueue == null) { return false; }
         tmpQueue.add(tmpPlayer);
@@ -54,12 +55,17 @@ public class QueueDeposit {
 
     public boolean removePlayerFromQueue(String queueName, String playerName) {
         Player tmpPlayer = Bukkit.getPlayer(playerName);
-        Queue<Player> tmpQueue = queues.get(queueName);
+        Queue<Player> tmpQueue = queues.get(queueName).getCollection();
         
         if(tmpPlayer == null || tmpQueue == null) { return false; }
         return tmpQueue.remove(tmpPlayer);
+    }
 
-        // todo: might need to implement a player removed from queue event
-        // but it's currently not needed
+    public Map<String, BaseQueue> getQueueMap() {
+        return queues;
+    }
+
+    public boolean containsQueue(String queueName) {
+        return (queues.get(queueName) != null);
     }
 }

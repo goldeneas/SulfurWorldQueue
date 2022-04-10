@@ -7,25 +7,37 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import io.github.golden.Sulfur;
+import io.github.golden.command.commands.BaseCommand;
 import io.github.golden.command.commands.CreateQueueCommand;
 import io.github.golden.command.commands.JoinQueueCommand;
 import io.github.golden.command.commands.LeaveQueueCommand;
 import io.github.golden.command.commands.RemoveQueueCommand;
 import io.github.golden.queue.QueueConfig;
+import io.github.golden.queue.QueueDeposit;
 import io.github.golden.queue.QueueFactory;
+import io.github.golden.task.QueuePositionNotifier;
 
 public class CommandListener implements CommandExecutor{
 
+    private static Sulfur sulfur = Sulfur.getSulfur();
     private QueueConfig queueConfig = QueueConfig.getConfig();
-    private QueueFactory queueFactory = new QueueFactory();
+
+    private QueueDeposit queueDeposit = new QueueDeposit();
+    private QueueFactory queueFactory = new QueueFactory(queueDeposit);
 
     private ArrayList<BaseCommand> commands = new ArrayList<>();
 
     public CommandListener() {
+        // create the commands
         commands.add(new CreateQueueCommand(queueFactory));
         commands.add(new RemoveQueueCommand(queueConfig));
-        commands.add(new LeaveQueueCommand(queueFactory));
-        commands.add(new JoinQueueCommand(queueFactory));
+        commands.add(new LeaveQueueCommand(queueDeposit));
+        commands.add(new JoinQueueCommand(queueDeposit));
+
+        // notify every player for each queue in this instance's deposit
+        // about their position in the queue.
+        new QueuePositionNotifier(queueDeposit).runTaskTimer(sulfur, 100, 40);
     }
 
     @Override

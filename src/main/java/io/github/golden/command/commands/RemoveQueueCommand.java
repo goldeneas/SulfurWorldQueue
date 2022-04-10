@@ -4,7 +4,6 @@ import org.bukkit.entity.Player;
 
 import io.github.golden.chat.ChatComponent;
 import io.github.golden.chat.ChatUtils;
-import io.github.golden.command.BaseCommand;
 import io.github.golden.queue.QueueConfig;
 
 public class RemoveQueueCommand extends BaseCommand {

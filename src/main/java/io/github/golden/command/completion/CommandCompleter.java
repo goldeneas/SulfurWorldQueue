@@ -9,7 +9,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 
-// todo: probably refactor this even more
 public class CommandCompleter implements TabCompleter {
 
     private ArrayList<CompletionComponent> completionComponents = new ArrayList<>();
@@ -27,7 +26,7 @@ public class CommandCompleter implements TabCompleter {
             "", "<queue_name>"
         ));
 
-        completionComponents.add(new CompletionComponent("join",
+        completionComponents.add(new CompletionComponent("joinqueue",
             "", "<queue_name>"
         ));
 

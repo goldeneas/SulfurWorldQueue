@@ -4,25 +4,24 @@ import org.bukkit.entity.Player;
 
 import io.github.golden.chat.ChatComponent;
 import io.github.golden.chat.ChatUtils;
-import io.github.golden.command.BaseCommand;
-import io.github.golden.queue.QueueFactory;
+import io.github.golden.queue.QueueDeposit;
 
 public class LeaveQueueCommand extends BaseCommand {
 
-    private QueueFactory queueFactory;
+    private QueueDeposit queueDeposit;
     
-    public LeaveQueueCommand(QueueFactory queueFactory) {
+    public LeaveQueueCommand(QueueDeposit queueDeposit) {
         this.commandName        = "leavequeue";
         this.requiredArgsLenght = 2;
         this.usage              = "/sulfur leavequeue <name>";
 
-        this.queueFactory       = queueFactory;
+        this.queueDeposit       = queueDeposit;
     }
     @Override
     protected void onCommand(Player executor, String... args) {
         // if the queue exists, remove the player.
         // otherwise, do feedback
-        if(queueFactory.getDeposit().removePlayerFromQueue(args[1], executor.getName())) {
+        if(queueDeposit.removePlayerFromQueue(args[1], executor.getName())) {
             ChatUtils.sendMessage(executor, new ChatComponent("You've left the queue: \'%s\'", args[1]));
         } else {
             ChatUtils.sendMessage(executor, new ChatComponent("Could not find queue: \'%s\'", args[1]));

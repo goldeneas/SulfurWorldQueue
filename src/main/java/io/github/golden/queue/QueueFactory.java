@@ -2,11 +2,11 @@ package io.github.golden.queue;
 
 public class QueueFactory {
 
-    private QueueConfig queueConfig = QueueConfig.getConfig();
     private QueueDeposit queueDeposit;
+    private QueueConfig queueConfig = QueueConfig.getConfig();
 
-    public QueueFactory() {
-        queueDeposit = new QueueDeposit();
+    public QueueFactory(QueueDeposit queueDeposit) {
+        this.queueDeposit = queueDeposit;
     }
     
     // crate a new queue; returning it doesn't have a real function right now
@@ -26,16 +26,6 @@ public class QueueFactory {
         } else {
             return QueueResult.NOT_IMPLEMENTED;
         }
-    }
-
-    // overload: lets us use strings insted of ints as argument for max players
-    public QueueResult createQueue(QueueType type, String queueName, String lobbyName, String destinationName, String maxPlayers) {
-        int parsedMaxPlayers = Integer.parseInt(maxPlayers);
-        return createQueue(type, queueName, lobbyName, destinationName, parsedMaxPlayers);
-    }
-
-    public QueueDeposit getDeposit() {
-        return queueDeposit;
     }
     
 }
