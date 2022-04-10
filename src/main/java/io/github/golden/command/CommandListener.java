@@ -122,29 +122,4 @@ public class CommandListener implements CommandExecutor{
 
         return true;
     }
-
-    private ChatComponent getSpecificErrorFromResult(QueueResult status) {
-        String error;
-
-        switch (status) {
-            case UNKNOWN_WORLD:
-                error = "Unknown world.";
-                break;
-
-            case NOT_INITIALIZED:
-                error = "The queue has not been initialized yet!";
-                break;
-
-            case NOT_IMPLEMENTED:
-                error = "This feature has not been implemented yet!";
-                break;
-
-            default:
-            case ERROR:
-                error = "Unknown error.";
-        }
-
-        return new ChatComponent(error);
-    }
-    
 }

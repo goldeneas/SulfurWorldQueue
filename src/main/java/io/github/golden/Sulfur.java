@@ -16,9 +16,8 @@ public class Sulfur extends JavaPlugin {
     // todo: add config messages
 
     // less important
+    // todo: move queue deposit out of queue factory
     // todo: add permission based queues
-    // todo: add sidebar/lowerbar info
-    // todo: add command class for commands
     // todo: add priority queue
 
     private static Sulfur sulfur;
