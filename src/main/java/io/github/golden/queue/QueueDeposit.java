@@ -61,6 +61,14 @@ public class QueueDeposit {
         return tmpQueue.remove(tmpPlayer);
     }
 
+    public BaseQueue getQueue(String queueName) {
+        for(Map.Entry<String, BaseQueue> entry : queues.entrySet()) {
+            if(queueName.equalsIgnoreCase(entry.getKey())) { return entry.getValue(); }
+        }
+
+        return null;
+    }
+
     public Map<String, BaseQueue> getQueueMap() {
         return queues;
     }

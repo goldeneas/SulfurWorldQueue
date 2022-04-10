@@ -30,7 +30,7 @@ public class CreateQueueCommand extends BaseCommand {
             maxPlayers = Integer.parseInt(args[5]);
         } catch(NumberFormatException e) {
             ChatUtils.sendMessage(executor,
-                new ChatComponent("The value you inserted as 'maxplayers' is not a valid number.", maxPlayers));
+                new ChatComponent("The value you inserted as 'maxplayers' is not a valid number", maxPlayers));
             return;
         }
 
@@ -44,7 +44,7 @@ public class CreateQueueCommand extends BaseCommand {
             return;
         }
 
-        ChatUtils.sendMessage(executor, new ChatComponent("You've created a new queue between %s and %s.", args[3], args[4]));
+        ChatUtils.sendMessage(executor, new ChatComponent("You've created a new queue between '%s' and '%s'", args[3], args[4]));
     }
 
     // returns a correct feedback chatcomponent for the given status

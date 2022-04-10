@@ -16,7 +16,7 @@ import io.github.golden.command.commands.RemoveQueueCommand;
 import io.github.golden.queue.QueueConfig;
 import io.github.golden.queue.QueueDeposit;
 import io.github.golden.queue.QueueFactory;
-import io.github.golden.task.QueuePositionNotifier;
+import io.github.golden.runnable.QueuePositionNotifier;
 
 public class CommandListener implements CommandExecutor{
 
@@ -31,7 +31,7 @@ public class CommandListener implements CommandExecutor{
     public CommandListener() {
         // create the commands
         commands.add(new CreateQueueCommand(queueFactory));
-        commands.add(new RemoveQueueCommand(queueConfig));
+        commands.add(new RemoveQueueCommand(queueDeposit, queueConfig));
         commands.add(new LeaveQueueCommand(queueDeposit));
         commands.add(new JoinQueueCommand(queueDeposit));
 

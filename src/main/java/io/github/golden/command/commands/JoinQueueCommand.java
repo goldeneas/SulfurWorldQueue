@@ -24,16 +24,16 @@ public class JoinQueueCommand extends BaseCommand {
 
         if(!queueDeposit.containsQueue(queueName)) {
             ChatUtils.sendMessage(executor,
-                new ChatComponent("The queue '%s' was not found.", queueName));
+                new ChatComponent("The queue '%s' was not found", queueName));
             return;
         }
 
         // if the queue exists, add the player.
         // otherwise, do feedback
         if(queueDeposit.addPlayerToQueue(queueName, executor.getName())) {
-            ChatUtils.sendMessage(executor, new ChatComponent("You've joined the queue: \'%s\'", args[1]));
+            ChatUtils.sendMessage(executor, new ChatComponent("You've joined the queue: '%s'", args[1]));
         } else {
-            ChatUtils.sendMessage(executor, new ChatComponent("Could not find queue: \'%s\'", args[1]));
+            ChatUtils.sendMessage(executor, new ChatComponent("Could not find queue: '%s'", args[1]));
         }
     }
 

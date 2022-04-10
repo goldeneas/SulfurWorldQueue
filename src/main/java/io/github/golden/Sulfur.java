@@ -12,11 +12,11 @@ public class Sulfur extends JavaPlugin {
     //  we might have to separate subcommand and options components
     //  we are still using the workaround, which is good for now
     //  because it's taking me way too much time for a stupid feature
-    // todo: add information about current player position in queue
     // todo: add config messages
 
     // less important
-    // todo: move queue deposit out of queue factory
+    // todo: remove player from other queues when joining a new one
+    // todo: let the player write /leavequeue without specifying a queue name
     // todo: add permission based queues
     // todo: add priority queue
 

@@ -1,4 +1,4 @@
-package io.github.golden.task;
+package io.github.golden.runnable;
 
 import java.util.Map;
 
@@ -30,7 +30,9 @@ public class QueuePositionNotifier extends BukkitRunnable {
 
                 // send action bar message
                 ChatUtils.sendActionBarMessage(player,
-                    String.format("Your position in queue is: &a%s", queue.getPlayerPosition(player)
+                    String.format("[%s] Your position in queue is: &a%s",
+                        queue.getQueueName(),
+                        queue.getPlayerPosition(player)
                 ));
             }
         }

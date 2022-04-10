@@ -19,12 +19,19 @@ public class LeaveQueueCommand extends BaseCommand {
     }
     @Override
     protected void onCommand(Player executor, String... args) {
-        // if the queue exists, remove the player.
-        // otherwise, do feedback
+        String queueName = args[1];
+
+        // todo: make this if (mainly the getQueue part) a bit shorter
+        if(!queueDeposit.containsQueue(queueName) || !queueDeposit.getQueue(queueName).containsPlayer(executor)) {
+            ChatUtils.sendMessage(executor,
+                new ChatComponent("There was an issue leaving queue '%s'", queueName));
+            return;
+        }
+
         if(queueDeposit.removePlayerFromQueue(args[1], executor.getName())) {
-            ChatUtils.sendMessage(executor, new ChatComponent("You've left the queue: \'%s\'", args[1]));
+            ChatUtils.sendMessage(executor, new ChatComponent("You've left the queue: '%s'", args[1]));
         } else {
-            ChatUtils.sendMessage(executor, new ChatComponent("Could not find queue: \'%s\'", args[1]));
+            ChatUtils.sendMessage(executor, new ChatComponent("Could not find queue: '%s'", args[1]));
         }
     }
 

@@ -20,7 +20,7 @@ public abstract class BaseCommand {
     public void invoke(Player executor, String... args) {
         if(args.length < requiredArgsLenght) { 
             ChatUtils.sendMessage(executor,
-                new ChatComponent("Correct usage: %s", usage));
+                new ChatComponent("Correct usage: '%s'", usage));
             return;
         }
 

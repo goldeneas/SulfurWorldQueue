@@ -48,6 +48,10 @@ public class BaseQueue {
         return playerQueue;
     }
 
+    public boolean containsPlayer(Player player) {
+        return playerQueue.contains(player);
+    }
+
     public int getPlayerPosition(Player player) {
         // will return -1 if the player is not in the queue
         if(!playerQueue.contains(player)) { return -1; }
