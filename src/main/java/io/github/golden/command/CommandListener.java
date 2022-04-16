@@ -12,6 +12,7 @@ import io.github.golden.command.commands.BaseCommand;
 import io.github.golden.command.commands.CreateQueueCommand;
 import io.github.golden.command.commands.JoinQueueCommand;
 import io.github.golden.command.commands.LeaveQueueCommand;
+import io.github.golden.command.commands.ListQueuesCommand;
 import io.github.golden.command.commands.RemoveQueueCommand;
 import io.github.golden.queue.QueueConfig;
 import io.github.golden.queue.QueueDeposit;
@@ -32,6 +33,7 @@ public class CommandListener implements CommandExecutor{
         // create the commands
         commands.add(new CreateQueueCommand(queueFactory));
         commands.add(new RemoveQueueCommand(queueDeposit, queueConfig));
+        commands.add(new ListQueuesCommand(queueDeposit));
         commands.add(new LeaveQueueCommand(queueDeposit));
         commands.add(new JoinQueueCommand(queueDeposit));
 

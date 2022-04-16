@@ -14,8 +14,10 @@ public class Sulfur extends JavaPlugin {
     //  because it's taking me way too much time for a stupid feature
     // todo: add config messages
 
-    // less important
+    // less importantù
+    // todo: update checker//bstats
     // todo: remove player from other queues when joining a new one
+    // todo: create listqueues command
     // todo: let the player write /leavequeue without specifying a queue name
     // todo: add permission based queues
     // todo: add priority queue

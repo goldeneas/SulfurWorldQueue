@@ -26,6 +26,10 @@ public class CommandCompleter implements TabCompleter {
             "", "<queue_name>"
         ));
 
+        completionComponents.add(new CompletionComponent("listqueues",
+            "", ""
+        ));
+
         completionComponents.add(new CompletionComponent("joinqueue",
             "", "<queue_name>"
         ));

@@ -30,7 +30,7 @@ public class QueuePositionNotifier extends BukkitRunnable {
 
                 // send action bar message
                 ChatUtils.sendActionBarMessage(player,
-                    String.format("[%s] Your position in queue is: &a%s",
+                    String.format("Your position for queue '%s' is: &a%s",
                         queue.getQueueName(),
                         queue.getPlayerPosition(player)
                 ));

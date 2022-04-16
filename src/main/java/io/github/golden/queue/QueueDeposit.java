@@ -14,6 +14,9 @@ public class QueueDeposit {
     private QueueConfig queueConfig = QueueConfig.getConfig();
 
     // queueName - playerQueue
+    // TODO: IMPORTANT
+    // probably an hashmap is not needed since we can iterate over the queue names with the getQueueName method
+    // so make this a single dimension collection and then change the implementations
     private HashMap<String, BaseQueue> queues;
 
     public QueueDeposit() {

@@ -5,6 +5,12 @@ import org.bukkit.entity.Player;
 import io.github.golden.chat.ChatComponent;
 import io.github.golden.chat.ChatUtils;
 
+// TODO: Implement automatic command listener addition for new commands
+// (in the commands list)
+// and TODO: Implement automatic command completer addition
+// (in the creation of a completion component)
+// TODO: automatiaclly add the new command in the list of possible first subcommands completion
+// (currently done in CommandCompleter line 17)
 public abstract class BaseCommand {
     
     protected String commandName;
